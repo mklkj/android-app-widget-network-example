@@ -1,7 +1,9 @@
 package io.github.mklkj.androidappwidgetexample.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,12 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         with(binding) {
             lifecycleOwner = viewLifecycleOwner
             vm = viewModel
+        }
+
+        viewModel.openInBrowser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                startActivity(Intent(Intent.ACTION_VIEW, it.toUri()))
+            }
         }
     }
 }

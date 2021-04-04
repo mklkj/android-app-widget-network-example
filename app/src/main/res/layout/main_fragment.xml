@@ -42,7 +42,7 @@
             tools:text="@tools:sample/lorem" />
 
         <TextView
-            android:id="@+id/thumbnail"
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{vm.page.description}"
@@ -55,14 +55,27 @@
             tools:text="@tools:sample/lorem/random" />
 
         <ImageView
+            android:id="@+id/thumbnail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:imageUrl="@{vm.page.thumbnail.source}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/thumbnail"
+            app:layout_constraintTop_toBottomOf="@id/description"
             tools:ignore="ContentDescription"
             tools:src="@tools:sample/avatars" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:onClick="@{() -> vm.openInBrowser()}"
+            android:text="Open in browser"
+            android:textSize="14sp"
+            app:icon="@android:drawable/ic_menu_share"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/thumbnail" />
 
         <TextView
             android:layout_width="0dp"

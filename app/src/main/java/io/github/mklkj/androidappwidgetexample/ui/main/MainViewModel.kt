@@ -25,6 +25,9 @@ class MainViewModel @Inject constructor(
     private val _message = MutableLiveData<String>()
     val message: LiveData<String> = _message
 
+    private val _openInBrowser = MutableLiveData<String?>()
+    val openInBrowser: LiveData<String?> = _openInBrowser
+
     init {
         loadData()
     }
@@ -45,5 +48,9 @@ class MainViewModel @Inject constructor(
 
     fun reload() {
         loadData()
+    }
+
+    fun openInBrowser() {
+        _openInBrowser.value = _page.value?.contentUrls?.desktop?.page
     }
 }
