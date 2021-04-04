@@ -32,4 +32,8 @@ class MainViewModel @Inject constructor(
             }
         }
     }
+
+    fun reload() {
+        loadData()
+    }
 }
