@@ -38,7 +38,7 @@ abstract class BaseAppWidgetProvider : BroadcastReceiver(), CoroutineScope {
             AppWidgetManager.ACTION_APPWIDGET_UPDATE -> {
                 val appWidgetIds = extras?.getIntArray(AppWidgetManager.EXTRA_APPWIDGET_IDS)
                 if (appWidgetIds != null && appWidgetIds.isNotEmpty()) {
-                    onUpdate(context, appWidgetManager, appWidgetIds, extras)
+                    onUpdate(context, appWidgetIds, extras)
                 }
             }
             AppWidgetManager.ACTION_APPWIDGET_DELETED -> {
@@ -53,10 +53,7 @@ abstract class BaseAppWidgetProvider : BroadcastReceiver(), CoroutineScope {
                 ) {
                     val appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)
                     val widgetExtras = extras.getBundle(AppWidgetManager.EXTRA_APPWIDGET_OPTIONS)
-                    onAppWidgetOptionsChanged(
-                        context, appWidgetManager,
-                        appWidgetId, widgetExtras
-                    )
+                    onAppWidgetOptionsChanged(context, appWidgetId, widgetExtras)
                 }
             }
             AppWidgetManager.ACTION_APPWIDGET_ENABLED -> onEnabled(context)
@@ -66,24 +63,14 @@ abstract class BaseAppWidgetProvider : BroadcastReceiver(), CoroutineScope {
                 val newIds = extras?.getIntArray(AppWidgetManager.EXTRA_APPWIDGET_IDS)
                 if (oldIds != null && oldIds.isNotEmpty() && newIds != null && newIds.isNotEmpty()) {
                     onRestored(context, oldIds, newIds)
-                    onUpdate(context, appWidgetManager, newIds, extras)
+                    onUpdate(context, newIds, extras)
                 }
             }
         }
     }
 
-    open fun onUpdate(
-        context: Context, appWidgetManager: AppWidgetManager,
-        appWidgetIds: IntArray, extras: Bundle?
-    ) {
-    }
-
-    open fun onAppWidgetOptionsChanged(
-        context: Context?, appWidgetManager: AppWidgetManager?,
-        appWidgetId: Int, newOptions: Bundle?
-    ) {
-    }
-
+    open fun onUpdate(context: Context, appWidgetIds: IntArray, extras: Bundle?) {}
+    open fun onAppWidgetOptionsChanged(context: Context?, appWidgetId: Int, newOptions: Bundle?) {}
     open fun onEnabled(context: Context) {}
     open fun onDisabled(context: Context) {}
     open fun onDeleted(context: Context, appWidgetId: Int, extras: Bundle) {}

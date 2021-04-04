@@ -9,18 +9,18 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/refresh_button"
-            style="?borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Refresh" />
-
-        <Button
             android:id="@+id/reload_button"
             style="?borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reload" />
+
+        <Button
+            android:id="@+id/refresh_button"
+            style="?borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Refresh" />
 
         <Button
             android:id="@+id/open_button"
