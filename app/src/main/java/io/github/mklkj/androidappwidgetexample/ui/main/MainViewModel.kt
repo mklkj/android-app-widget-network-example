@@ -19,6 +19,12 @@ class MainViewModel @Inject constructor(
     private val _page = MutableLiveData<WikipediaPageSummary>()
     val page: LiveData<WikipediaPageSummary> = _page
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
+    private val _message = MutableLiveData<String>()
+    val message: LiveData<String> = _message
+
     init {
         loadData()
     }
@@ -26,9 +32,13 @@ class MainViewModel @Inject constructor(
     private fun loadData() {
         viewModelScope.launch {
             try {
+                _loading.value = true
                 _page.value = wikipediaRepository.getPageRandomSummary()
             } catch (e: Throwable) {
                 Timber.e(e)
+                _message.value = e.message
+            } finally {
+                _loading.value = false
             }
         }
     }

@@ -36,7 +36,7 @@ data class WikipediaPageSummary(
     @Json(name = "description")
     val description: String?,
     @Json(name = "description_source")
-    val descriptionSource: String,
+    val descriptionSource: String?,
     @Json(name = "content_urls")
     val contentUrls: ContentUrls,
     @Json(name = "extract")
