@@ -1,4 +1,4 @@
-package io.github.mklkj.androidappwidgetexample.ui.main
+package io.github.mklkj.androidappwidgetexample.ui.modules.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

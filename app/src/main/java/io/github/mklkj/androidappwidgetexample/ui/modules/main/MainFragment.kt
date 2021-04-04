@@ -1,4 +1,4 @@
-package io.github.mklkj.androidappwidgetexample.ui.main
+package io.github.mklkj.androidappwidgetexample.ui.modules.main
 
 import android.content.Intent
 import android.os.Bundle

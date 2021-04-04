@@ -19,7 +19,7 @@
         </activity>
 
 
-        <receiver android:name=".ui.randomwidget.RandomWidgetProvider">
+        <receiver android:name=".ui.modules.randomwidget.RandomWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

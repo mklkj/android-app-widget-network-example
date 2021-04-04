@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.androidappwidgetexample.R
-import io.github.mklkj.androidappwidgetexample.ui.main.MainFragment
+import io.github.mklkj.androidappwidgetexample.ui.modules.main.MainFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
