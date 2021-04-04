@@ -32,11 +32,11 @@ class MainViewModel @Inject constructor(
         loadData()
     }
 
-    private fun loadData() {
+    private fun launchWithCatch(block: suspend () -> Unit) {
         viewModelScope.launch {
             try {
                 _loading.value = true
-                _page.value = wikipediaRepository.getPageRandomSummary()
+                block()
             } catch (e: Throwable) {
                 Timber.e(e)
                 _message.value = e.message
@@ -46,8 +46,16 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun loadData() {
+        launchWithCatch {
+            _page.value = wikipediaRepository.getCachedPageRandomSummary()
+        }
+    }
+
     fun reload() {
-        loadData()
+        launchWithCatch {
+            _page.value = wikipediaRepository.getPageRandomSummary()
+        }
     }
 
     fun openInBrowser() {
