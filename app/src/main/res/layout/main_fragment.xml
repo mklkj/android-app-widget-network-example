@@ -42,6 +42,7 @@
             tools:text="@tools:sample/lorem" />
 
         <TextView
+            android:id="@+id/thumbnail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{vm.page.description}"
@@ -50,7 +51,18 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
+            tools:maxLines="8"
             tools:text="@tools:sample/lorem/random" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:imageUrl="@{vm.page.thumbnail.source}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/thumbnail"
+            tools:ignore="ContentDescription"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:layout_width="0dp"

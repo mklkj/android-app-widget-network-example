@@ -20,7 +20,7 @@ data class WikipediaPageSummary(
     @Json(name = "pageid")
     val pageid: Int,
     @Json(name = "thumbnail")
-    val thumbnail: Thumbnail,
+    val thumbnail: Thumbnail?,
     @Json(name = "originalimage")
     val originalimage: Originalimage,
     @Json(name = "lang")
