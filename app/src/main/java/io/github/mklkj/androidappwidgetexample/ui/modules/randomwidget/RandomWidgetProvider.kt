@@ -11,6 +11,7 @@ import androidx.core.net.toUri
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.mklkj.androidappwidgetexample.R
 import io.github.mklkj.androidappwidgetexample.data.repository.WikipediaRepository
+import io.github.mklkj.androidappwidgetexample.service.ServiceManager
 import io.github.mklkj.androidappwidgetexample.ui.MainActivity
 import io.github.mklkj.androidappwidgetexample.ui.base.BaseAppWidgetProvider
 import kotlinx.coroutines.delay
@@ -24,10 +25,14 @@ class RandomWidgetProvider : BaseAppWidgetProvider() {
     @Inject
     lateinit var wikipediaRepository: WikipediaRepository
 
+    @Inject
+    lateinit var serviceManager: ServiceManager
+
     companion object {
-        private const val UPDATE_TYPE_KEY = "button_type_key"
-        private const val UPDATE_RELOAD_KEY = "button_reload_key"
-        private const val UPDATE_REFRESH_KEY = "button_refresh_key"
+        const val UPDATE_TYPE_KEY = "button_type_key"
+        const val UPDATE_RELOAD_KEY = "button_reload_key"
+        const val UPDATE_REFRESH_KEY = "button_refresh_key"
+        const val UPDATE_REFRESH_ERROR_KEY = "button_refresh_error_key"
     }
 
     override fun onUpdate(context: Context, appWidgetIds: IntArray, extras: Bundle?) {
@@ -44,9 +49,13 @@ class RandomWidgetProvider : BaseAppWidgetProvider() {
         when (type) {
             UPDATE_REFRESH_KEY -> {
                 setRefreshUI()
+                serviceManager.startOneTimeWorkerForRefreshPageOnWidget(arrayOf(id).toIntArray())
+            }
+            UPDATE_REFRESH_ERROR_KEY -> {
+                setRefreshErrorUI()
                 appWidgetManager.updateAppWidget(id, this)
-                delay(1_000)
-                enqueueRefreshJob()
+                delay(2_000)
+                setWidgetUI(context, id)
             }
             else -> setWidgetUI(context, id)
         }
@@ -77,16 +86,16 @@ class RandomWidgetProvider : BaseAppWidgetProvider() {
         setTextViewText(R.id.app_name, "Refreshing...")
     }
 
-    private fun RemoteViews.enqueueRefreshJob() {
-        // TODO: configure work manager
-        setTextViewText(R.id.app_name, "Success")
+    private fun RemoteViews.setRefreshErrorUI() {
+        setTextViewText(R.id.app_name, "Error occurred :(")
+        Timber.e("ERROR OCURR")
     }
 
     private fun Context.buttonIntent(id: Int, updateType: String): PendingIntent {
         val intent = Intent(this, RandomWidgetProvider::class.java).apply {
             action = ACTION_APPWIDGET_UPDATE
             putExtra(UPDATE_TYPE_KEY, updateType)
-            putExtra(WIDGET_ID_KEY, arrayListOf(id).toIntArray())
+            putExtra(WIDGET_ID_KEY, arrayOf(id).toIntArray())
         }
         return PendingIntent.getBroadcast(this, intent.hashCode(), intent, FLAG_UPDATE_CURRENT)
     }
